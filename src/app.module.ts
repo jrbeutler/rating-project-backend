@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { AccountModule } from './api/account/account.module';
 import { ConfigModule, ConfigService } from 'nestjs-config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ArticleModule } from './api/article/article.module';
+import { UserModule } from './api/user/user.module';
 import * as path from 'path';
 
 @Module({
@@ -16,10 +15,9 @@ import * as path from 'path';
       inject: [ConfigService],
     }),
     GraphQLModule.forRoot({
-      autoSchemaFile: 'schema.gql',
+      autoSchemaFile: 'schema.graphql',
     }),
-    AccountModule,
-    ArticleModule,
+    UserModule,
   ],
 })
 export class AppModule {}
