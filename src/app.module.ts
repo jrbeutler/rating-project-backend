@@ -1,14 +1,25 @@
 import { Module } from '@nestjs/common';
+import { GraphQLModule } from '@nestjs/graphql';
+import { AccountModule } from './api/account/account.module';
+import { ConfigModule, ConfigService } from 'nestjs-config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { configService } from "./config/config.service";
+import { ArticleModule } from './api/article/article.module';
+import * as path from 'path';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(configService.getTypeOrmConfig())
+    ConfigModule.load(path.resolve(__dirname, 'config', '**/!(*.d).{ts,js}'), {
+      path: path.resolve(__dirname, '..', '.env'),
+    }),
+    TypeOrmModule.forRootAsync({
+      useFactory: async (config: ConfigService) => config.get('typeorm'),
+      inject: [ConfigService],
+    }),
+    GraphQLModule.forRoot({
+      autoSchemaFile: 'schema.gql',
+    }),
+    AccountModule,
+    ArticleModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
