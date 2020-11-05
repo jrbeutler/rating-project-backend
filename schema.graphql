@@ -12,12 +12,21 @@ input addUser {
 
 type Mutation {
   addUser(data: addUser!): users!
-  delUser(id: String!): Boolean!
+  updateUser(data: updateUser!): users!
+  delUser(id: Float!): Boolean!
 }
 
 type Query {
   user(id: Float!): users!
-  users(id: ID): [users!]!
+  users: [users!]!
+}
+
+input updateUser {
+  id: Float!
+  firstName: String!
+  lastName: String!
+  position: String!
+  email: String!
 }
 
 type users {

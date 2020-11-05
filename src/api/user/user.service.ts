@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { AddUserInput } from './dto/add-user.input';
-import { GetUsersArgs } from './dto/get-users.args';
 import { UserEntity } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UpdateUserInput } from './dto/update-user.input';
 
 @Injectable()
 export class UserService {
@@ -33,13 +33,29 @@ export class UserService {
     return user;
   }
 
-  async findAll(args: GetUsersArgs): Promise<UserEntity[]> {
-    const queryBuilder = this.userRepository.createQueryBuilder('user');
+  async findAll(): Promise<UserEntity[]> {
+    const queryBuilder = this.userRepository.createQueryBuilder('users');
 
     return await queryBuilder.getMany();
   }
 
-  async remove(id: string): Promise<boolean> {
+  async updateUser(userInput: UpdateUserInput): Promise<UserEntity> {
+    const { id, firstName, lastName, position, email } = userInput;
+    const user = await this.userRepository.save({
+      id,
+      firstName,
+      lastName,
+      position,
+      email,
+    });
+
+    if (!user) {
+      throw new NotFoundException();
+    }
+    return user;
+  }
+
+  async remove(id: number): Promise<boolean> {
     await this.userRepository.delete(id);
     return true;
   }

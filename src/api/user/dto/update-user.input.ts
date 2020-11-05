@@ -1,8 +1,12 @@
-import { MaxLength, IsString, IsEmail } from 'class-validator';
+import { MaxLength, IsNumber, IsString } from 'class-validator';
 import { Field, InputType } from 'type-graphql';
 
-@InputType('addUser')
-export class AddUserInput {
+@InputType('updateUser')
+export class UpdateUserInput {
+  @Field()
+  @IsNumber()
+  public id: number;
+
   @Field()
   @IsString()
   @MaxLength(200)
@@ -19,7 +23,6 @@ export class AddUserInput {
   public position: string;
 
   @Field()
-  @IsEmail()
   @IsString()
   @MaxLength(200)
   public email: string;
