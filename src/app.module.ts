@@ -1,23 +1,35 @@
-import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { ConfigModule, ConfigService } from 'nestjs-config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule } from './api/user/user.module';
-import * as path from 'path';
+import { Module } from '@nestjs/common';
+import { AuthModule } from './resolvers/auth/auth.module';
+import { UserModule } from './resolvers/user/user.module';
+import { DateScalar } from './common/scalars/date.scalar';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import config from './configs/config';
+import { GraphqlConfig } from './configs/config.interface';
 
 @Module({
   imports: [
-    ConfigModule.load(path.resolve(__dirname, 'config', '**/!(*.d).{ts,js}'), {
-      path: path.resolve(__dirname, '..', '.env'),
-    }),
-    TypeOrmModule.forRootAsync({
-      useFactory: async (config: ConfigService) => config.get('typeorm'),
+    ConfigModule.forRoot({ isGlobal: true, load: [config] }),
+    GraphQLModule.forRootAsync({
+      useFactory: async (configService: ConfigService) => {
+        const graphqlConfig = configService.get<GraphqlConfig>('graphql');
+        return {
+          buildSchemaOptions: {
+            numberScalarMode: 'integer',
+          },
+          sortSchema: graphqlConfig.sortSchema,
+          autoSchemaFile:
+            graphqlConfig.schemaDestination || './src/schema.graphql',
+          debug: graphqlConfig.debug,
+          playground: graphqlConfig.playgroundEnabled,
+          context: ({ req }) => ({ req }),
+        };
+      },
       inject: [ConfigService],
     }),
-    GraphQLModule.forRoot({
-      autoSchemaFile: 'schema.graphql',
-    }),
+    AuthModule,
     UserModule,
   ],
+  providers: [DateScalar],
 })
 export class AppModule {}

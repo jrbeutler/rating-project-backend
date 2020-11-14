@@ -1,14 +1,11 @@
 {
-  "name": "Rating GraphQL Schema",
-  "schemaPath": "./schema.graphql",
-  "extensions": {
-    "endpoints": {
-      "Default GraphQL Endpoint": {
-        "url": "http://localhost:8080/graphql",
-        "headers": {
-          "user-agent": "JS GraphQL"
-        },
-        "introspect": false
+  "projects": {
+    "nest-prisma-starter": {
+      "schemaPath": "src/schema.graphql",
+      "extensions": {
+        "endpoints": {
+          "dev": "http://localhost:3000/graphql"
+        }
       }
     }
   }
