@@ -21,6 +21,7 @@ Rating Project Backend
 - [Instructions](#instructions)
   - [Features](#features)
   - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
   - [Prisma Setup](#prisma-setup)
     - [1. Install Dependencies](#1-install-dependencies)
     - [2. Prisma: Prisma Migrate](#3-prisma-prisma-migrate)
@@ -33,21 +34,34 @@ Rating Project Backend
   - [NestJS - Api Schema](#nestjs---api-schema)
     - [Resolver](#resolver)
 
+## Prerequisites
+
+This software must be installed and configured before doing any of the steps down below.
+
+### 1. Install Postgres
+
+- Install [Postgress v13.1](https://www.postgresql.org/download/).
+- Configure Postgres to default settings during installation.
+
+### 2. Install Node
+
+- Install [Node](https://nodejs.org/en/download/).
+
 ## Prisma Setup
 
 ### 1. Install Dependencies
 
-Install [Nestjs CLI](https://docs.nestjs.com/cli/usages) to start and [generate CRUD resources](https://trilon.io/blog/introducing-cli-generators-crud-api-in-1-minute)
+1.  Install [Nestjs CLI](https://docs.nestjs.com/cli/usages) to start and [generate CRUD resources](https://trilon.io/blog/introducing-cli-generators-crud-api-in-1-minute)
 
-```bash
-npm i -g @nestjs/cli
-```
+    ```bash
+    npm i -g @nestjs/cli
+    ```
 
-Install the dependencies for the Nest application:
+2. Install the dependencies for the Nest application:
 
-```bash
-npm install
-```
+    ```bash
+    npm install
+    ```
 
 ### 2. Prisma: Prisma Migrate
 
