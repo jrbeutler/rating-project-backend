@@ -17,6 +17,13 @@ export class UserResolver {
     return user;
   }
 
+  @Query((returns) => [User])
+  async allUsers(@UserEntity() user: User): Promise<User[]> {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return this.userService.allUsers();
+  }
+
   @UseGuards(GqlAuthGuard)
   @Mutation((returns) => User)
   async updateUser(

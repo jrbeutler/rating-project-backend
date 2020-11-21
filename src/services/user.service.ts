@@ -11,6 +11,10 @@ export class UserService {
     private passwordService: PasswordService
   ) {}
 
+  allUsers() {
+    return this.prisma.user.findMany();
+  }
+
   updateUser(userId: string, newUserData: UpdateUserInput) {
     return this.prisma.user.update({
       data: newUserData,
