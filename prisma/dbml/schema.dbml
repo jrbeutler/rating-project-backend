@@ -13,7 +13,6 @@ Table User {
   role Role [not null]
   reviewed Rating
   reviewer Rating
-  ratings Rating
 }
 
 Table Rating {
@@ -25,10 +24,8 @@ Table Rating {
   category Category [not null]
   rating Int [not null]
   notes String
-  userId String
   reviewed User [not null]
   reviewer User [not null]
-  User User
 }
 
 Enum Role {
@@ -44,5 +41,3 @@ Enum Category {
 Ref: Rating.reviewedID - User.id
 
 Ref: Rating.reviewerID - User.id
-
-Ref: Rating.userId - User.id

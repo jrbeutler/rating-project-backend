@@ -1,0 +1,20 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "DeleteField",
+      "model": "User",
+      "field": "ratings"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Rating",
+      "field": "userId"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Rating",
+      "field": "User"
+    }
+  ]
+}
