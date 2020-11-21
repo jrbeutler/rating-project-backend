@@ -25,7 +25,6 @@ async function main() {
       password: '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6xNekdHgTGmrpHEfIoxm', // secret42
     },
   });
-
   console.log({ user1, user2 });
 }
 

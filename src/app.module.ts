@@ -6,6 +6,7 @@ import { DateScalar } from './common/scalars/date.scalar';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import config from './configs/config';
 import { GraphqlConfig } from './configs/config.interface';
+import { RatingModule } from './resolvers/rating/rating.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { GraphqlConfig } from './configs/config.interface';
     }),
     AuthModule,
     UserModule,
+    RatingModule,
   ],
   providers: [DateScalar],
 })

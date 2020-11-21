@@ -11,6 +11,12 @@ type Auth {
   user: User!
 }
 
+"""User Category Graded"""
+enum Category {
+  BACKEND
+  FRONTEND
+}
+
 input ChangePasswordInput {
   newPassword: String!
   oldPassword: String!
@@ -34,6 +40,22 @@ type Mutation {
 
 type Query {
   me: User!
+  userRatings(reviewedID: String!): [Rating!]!
+}
+
+type Rating {
+  category: Category!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+  id: ID!
+  notes: String
+  rating: Int!
+  reviewedID: String!
+  reviewerID: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
 }
 
 """User role"""
