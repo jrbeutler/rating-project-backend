@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = "***"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  email     String   @unique
+  password  String
+  firstname String?
+  lastname  String?
+  role      Role
+  reviewed  Rating?  @relation("reviewed")
+  reviewer  Rating?  @relation("reviewer")
+}
+
+model Rating {
+  id         String   @id @default(cuid())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  reviewerID String   @unique
+  reviewedID String   @unique
+  category   Category
+  rating     Int
+  notes      String?
+  reviewed   User     @relation("reviewed", fields: [reviewedID], references: [id])
+  reviewer   User     @relation("reviewer", fields: [reviewerID], references: [id])
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum Category {
+  BACKEND
+  FRONTEND
+}

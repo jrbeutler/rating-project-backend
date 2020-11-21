@@ -8,7 +8,7 @@ generator dbml {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 model User {
@@ -20,16 +20,16 @@ model User {
   firstname                      String?
   lastname                       String?
   role                           Role
-  Rating_Rating_reviewedIDToUser Rating[]  @relation("Rating_reviewedIDToUser")
-  Rating_Rating_reviewerIDToUser Rating[]  @relation("Rating_reviewerIDToUser")
+  Rating_Rating_reviewedIDToUser Rating?  @relation("Rating_reviewedIDToUser")
+  Rating_Rating_reviewerIDToUser Rating?  @relation("Rating_reviewerIDToUser")
 }
 
 model Rating {
   id                           String   @id @default(cuid())
   createdAt                    DateTime @default(now())
   updatedAt                    DateTime @updatedAt
-  reviewerID                   String
-  reviewedID                   String
+  reviewerID                   String   @unique
+  reviewedID                   String   @unique
   category                     Category
   rating                       Int
   notes                        String?
