@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
 import { CreateRatingInput } from '../resolvers/rating/create-rating.input';
+import { Rating } from '../models/rating.model';
 
 @Injectable()
 export class RatingService {
@@ -13,6 +14,8 @@ export class RatingService {
   // }
 
   userRatings(reviewedID: string) {
-    return [];
+    return this.prisma.rating.findMany({
+      where: {reviewedID: reviewedID}
+    });
   }
 }

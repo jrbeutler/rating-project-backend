@@ -15,6 +15,8 @@ export class RatingResolver {
   async userRatings(
     @RatingEntity() ratings: Rating[],
     @Args('reviewedID') reviewedID: string): Promise<Rating[]> {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     return this.ratingService.userRatings(reviewedID);
   }
 }
