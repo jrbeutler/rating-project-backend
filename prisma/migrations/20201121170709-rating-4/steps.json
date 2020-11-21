@@ -1,0 +1,209 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateField",
+      "model": "User",
+      "field": "Rating_Rating_reviewedIDToUser",
+      "type": "Rating",
+      "arity": "Optional"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "User",
+          "field": "Rating_Rating_reviewedIDToUser"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "User",
+          "field": "Rating_Rating_reviewedIDToUser"
+        },
+        "directive": "relation"
+      },
+      "argument": "",
+      "value": "\"Rating_reviewedIDToUser\""
+    },
+    {
+      "tag": "CreateField",
+      "model": "User",
+      "field": "Rating_Rating_reviewerIDToUser",
+      "type": "Rating",
+      "arity": "Optional"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "User",
+          "field": "Rating_Rating_reviewerIDToUser"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "User",
+          "field": "Rating_Rating_reviewerIDToUser"
+        },
+        "directive": "relation"
+      },
+      "argument": "",
+      "value": "\"Rating_reviewerIDToUser\""
+    },
+    {
+      "tag": "DeleteField",
+      "model": "User",
+      "field": "reviewer"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "User",
+      "field": "reviewed"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Rating",
+      "field": "User_Rating_reviewedIDToUser",
+      "type": "User",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Rating",
+          "field": "User_Rating_reviewedIDToUser"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Rating",
+          "field": "User_Rating_reviewedIDToUser"
+        },
+        "directive": "relation"
+      },
+      "argument": "",
+      "value": "\"Rating_reviewedIDToUser\""
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Rating",
+          "field": "User_Rating_reviewedIDToUser"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[reviewedID]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Rating",
+          "field": "User_Rating_reviewedIDToUser"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[id]"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Rating",
+      "field": "User_Rating_reviewerIDToUser",
+      "type": "User",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Rating",
+          "field": "User_Rating_reviewerIDToUser"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Rating",
+          "field": "User_Rating_reviewerIDToUser"
+        },
+        "directive": "relation"
+      },
+      "argument": "",
+      "value": "\"Rating_reviewerIDToUser\""
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Rating",
+          "field": "User_Rating_reviewerIDToUser"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[reviewerID]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Rating",
+          "field": "User_Rating_reviewerIDToUser"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[id]"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Rating",
+      "field": "reviewer"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Rating",
+      "field": "reviewed"
+    }
+  ]
+}

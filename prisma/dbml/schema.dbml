@@ -11,21 +11,21 @@ Table User {
   firstname String
   lastname String
   role Role [not null]
-  reviewed Rating
-  reviewer Rating
+  Rating_Rating_reviewedIDToUser Rating
+  Rating_Rating_reviewerIDToUser Rating
 }
 
 Table Rating {
   id String [pk]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
-  reviewerID String [unique, not null]
-  reviewedID String [unique, not null]
+  reviewerID String [not null]
+  reviewedID String [not null]
   category Category [not null]
   rating Int [not null]
   notes String
-  reviewed User [not null]
-  reviewer User [not null]
+  User_Rating_reviewedIDToUser User [not null]
+  User_Rating_reviewerIDToUser User [not null]
 }
 
 Enum Role {
@@ -38,6 +38,6 @@ Enum Category {
   FRONTEND
 }
 
-Ref: Rating.reviewedID - User.id
+Ref: Rating.reviewedID > User.id
 
-Ref: Rating.reviewerID - User.id
+Ref: Rating.reviewerID > User.id

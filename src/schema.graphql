@@ -22,6 +22,14 @@ input ChangePasswordInput {
   oldPassword: String!
 }
 
+input CreateRatingInput {
+  category: String!
+  notes: String
+  rating: Int!
+  reviewedID: String!
+  reviewerID: String!
+}
+
 """Date custom scalar type"""
 scalar Date
 
@@ -32,6 +40,7 @@ input LoginInput {
 
 type Mutation {
   changePassword(data: ChangePasswordInput!): User!
+  createRating(data: CreateRatingInput!): Rating!
   login(data: LoginInput!): Auth!
   refreshToken(token: String!): Token!
   signup(data: SignupInput!): Auth!
