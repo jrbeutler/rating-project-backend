@@ -14,6 +14,12 @@ export class RatingService {
     });
   }
 
+  userReviewedRatings(reviewerID: string) {
+    return this.prisma.rating.findMany({
+      where: {reviewerID: reviewerID}
+    })
+  }
+
   createRating(newRatingData: CreateRatingInput) {
     return this.prisma.rating.create({
       data: {

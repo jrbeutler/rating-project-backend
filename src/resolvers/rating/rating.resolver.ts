@@ -22,6 +22,17 @@ export class RatingResolver {
   }
 
   @UseGuards(GqlAuthGuard)
+  @Query((returns) => [Rating])
+  async userReviewedRatings(
+    @RatingEntity() ratings: Rating[],
+    @Args('reviewerID') reviewerID: string): Promise<Rating[]> {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return this.ratingService.userReviewedRatings(reviewerID);
+  }
+
+
+  @UseGuards(GqlAuthGuard)
   @Mutation((returns) => Rating)
   async createRating(
     @RatingEntity() rating: Rating,
