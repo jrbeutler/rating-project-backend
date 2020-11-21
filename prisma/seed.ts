@@ -25,8 +25,26 @@ async function main() {
       password: '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6xNekdHgTGmrpHEfIoxm', // secret42
     },
   });
-
   console.log({ user1, user2 });
+  const rating1 = await prisma.rating.create({
+    data: {
+      category: 'FRONTEND',
+      rating: 4,
+      notes: 'Really solid knowledge!',
+      reviewed: {connect: {id: user1.id}},
+      reviewer: {connect: {id: user2.id}}
+    }
+  });
+  const rating2 = await prisma.rating.create({
+    data: {
+      category: 'BACKEND',
+      rating: 2,
+      notes: 'Really need work!',
+      reviewed: {connect: {id: user2.id}},
+      reviewer: {connect: {id: user1.id}}
+    }
+  });
+  console.log({rating1, rating2});
 }
 
 main()
