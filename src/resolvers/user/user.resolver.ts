@@ -17,6 +17,15 @@ export class UserResolver {
     return user;
   }
 
+  @Query((returns) => User)
+  async userByID(
+    @UserEntity() user: User,
+    @Args('userID') userID: string): Promise<User> {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return this.userService.userByID(userID);
+  }
+
   @Query((returns) => [User])
   async allUsers(@UserEntity() user: User): Promise<User[]> {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
