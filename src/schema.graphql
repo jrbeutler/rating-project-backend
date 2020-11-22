@@ -50,6 +50,7 @@ type Mutation {
 type Query {
   allUsers: [User!]!
   me: User!
+  userByID(userID: String!): User!
   userRatings(reviewedID: String!): [Rating!]!
   userReviewedRatings(reviewerID: String!): [Rating!]!
 }

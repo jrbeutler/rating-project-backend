@@ -15,6 +15,14 @@ export class UserService {
     return this.prisma.user.findMany();
   }
 
+  userByID(userID: string) {
+    return this.prisma.user.findOne({
+      where: {
+        id: userID,
+      },
+    });
+  }
+
   updateUser(userId: string, newUserData: UpdateUserInput) {
     return this.prisma.user.update({
       data: newUserData,
