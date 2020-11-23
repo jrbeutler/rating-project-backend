@@ -31,8 +31,12 @@ async function main() {
       category: 'FRONTEND',
       rating: 4,
       notes: 'Really solid knowledge!',
-      reviewed: {connect: {id: user1.id}},
-      reviewer: {connect: {id: user2.id}}
+      User_Rating_reviewedIDToUser: {
+        connect: { id: user1.id }
+      },
+      User_Rating_reviewerIDToUser: {
+        connect: { id: user2.id }
+      },
     }
   });
   const rating2 = await prisma.rating.create({
@@ -40,8 +44,12 @@ async function main() {
       category: 'BACKEND',
       rating: 2,
       notes: 'Really need work!',
-      reviewed: {connect: {id: user2.id}},
-      reviewer: {connect: {id: user1.id}}
+      User_Rating_reviewedIDToUser: {
+        connect: { id: user2.id }
+      },
+      User_Rating_reviewerIDToUser: {
+        connect: { id: user1.id }
+      },
     }
   });
   console.log({rating1, rating2});
