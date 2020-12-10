@@ -15,7 +15,7 @@ registerEnumType(Category, {
 export class Rating extends BaseModel {
   reviewerID: string;
   reviewedID: string;
-  category: Category;
+  categoryID: string;
   rating: number;
   notes?: string;
 }

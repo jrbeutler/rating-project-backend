@@ -11,19 +11,13 @@ type Auth {
   user: User!
 }
 
-"""User Category Graded"""
-enum Category {
-  BACKEND
-  FRONTEND
-}
-
 input ChangePasswordInput {
   newPassword: String!
   oldPassword: String!
 }
 
 input CreateRatingInput {
-  category: String!
+  categoryID: String!
   notes: String
   rating: Int!
   reviewedID: String!
@@ -56,7 +50,7 @@ type Query {
 }
 
 type Rating {
-  category: Category!
+  categoryID: String!
 
   """Identifies the date and time when the object was created."""
   createdAt: Date!
