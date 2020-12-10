@@ -31,7 +31,6 @@ export class RatingResolver {
     return this.ratingService.userReviewedRatings(reviewerID);
   }
 
-
   @UseGuards(GqlAuthGuard)
   @Mutation((returns) => Rating)
   async createRating(
@@ -47,5 +46,21 @@ export class RatingResolver {
     } else {
       return result;
     }
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Query((returns) => String )
+  async calculateAverageFrontEndRating(
+    @RatingEntity() ratings: string,
+    @Args('reviewedID') reviewedID: string): Promise<string> {
+    return this.ratingService.calculateAverageFrontEndRating(reviewedID)
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Query((returns) => String )
+  async calculateAverageBackEndRating(
+    @RatingEntity() ratings: string,
+    @Args('reviewedID') reviewedID: string): Promise<string> {
+    return this.ratingService.calculateAverageBackEndRating(reviewedID)
   }
 }

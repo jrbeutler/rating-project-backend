@@ -35,4 +35,36 @@ export class RatingService {
       }
     });
   }
+
+  async calculateAverageFrontEndRating(reviewedID: string) {
+    const allRatings = await this.prisma.rating.findMany({
+      where: {reviewedID: reviewedID}
+    });
+    let frontRating = 0;
+    let numberRatings = 0;
+    for (let index = 0; index < allRatings.length; index++) {
+      const rating = allRatings[index];
+      if (rating.category === 'FRONTEND') {
+        frontRating += rating.rating
+        numberRatings += 1;
+      }
+    }
+    return ((frontRating/numberRatings).toFixed())
+  }
+
+  async calculateAverageBackEndRating(reviewedID: string) {
+    const allRatings = await this.prisma.rating.findMany({
+      where: { reviewedID: reviewedID }
+    });
+    let backRating = 0;
+    let numberRatings = 0;
+    for (let index = 0; index < allRatings.length; index++) {
+      const rating = allRatings[index];
+      if (rating.category === 'BACKEND') {
+        backRating += rating.rating
+        numberRatings += 1;
+      }
+    }
+    return ((backRating/numberRatings).toFixed())
+  }
 }
