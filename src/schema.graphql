@@ -11,6 +11,11 @@ type Auth {
   user: User!
 }
 
+type Category {
+  id: ID!
+  name: String!
+}
+
 input ChangePasswordInput {
   newPassword: String!
   oldPassword: String!
@@ -34,6 +39,7 @@ input LoginInput {
 
 type Mutation {
   changePassword(data: ChangePasswordInput!): User!
+  createCategory(name: String!): Category!
   createRating(data: CreateRatingInput!): Rating!
   login(data: LoginInput!): Auth!
   refreshToken(token: String!): Token!
