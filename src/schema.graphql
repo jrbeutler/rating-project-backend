@@ -49,6 +49,7 @@ type Mutation {
 
 type Query {
   allUsers: [User!]!
+  getAllCategories: [Category!]!
   me: User!
   userByID(userID: String!): User!
   userRatings(reviewedID: String!): [Rating!]!
