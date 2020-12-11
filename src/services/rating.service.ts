@@ -29,7 +29,9 @@ export class RatingService {
         User_Rating_reviewerIDToUser: {
           connect: { id: newRatingData.reviewerID }
         },
-        category: newRatingData.category,
+        Rating_Category_categoryToCategory: {
+          connect: { id: newRatingData.categoryID }
+        },
         rating: newRatingData.rating,
         notes: newRatingData.notes
       }

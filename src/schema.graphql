@@ -11,10 +11,9 @@ type Auth {
   user: User!
 }
 
-"""User Category Graded"""
-enum Category {
-  BACKEND
-  FRONTEND
+type Category {
+  id: ID!
+  name: String!
 }
 
 input ChangePasswordInput {
@@ -23,7 +22,7 @@ input ChangePasswordInput {
 }
 
 input CreateRatingInput {
-  category: String!
+  categoryID: String!
   notes: String
   rating: Int!
   reviewedID: String!
@@ -40,6 +39,7 @@ input LoginInput {
 
 type Mutation {
   changePassword(data: ChangePasswordInput!): User!
+  createCategory(name: String!): Category!
   createRating(data: CreateRatingInput!): Rating!
   login(data: LoginInput!): Auth!
   refreshToken(token: String!): Token!
@@ -49,6 +49,7 @@ type Mutation {
 
 type Query {
   allUsers: [User!]!
+  getAllCategories: [Category!]!
   me: User!
   userByID(userID: String!): User!
   userRatings(reviewedID: String!): [Rating!]!
@@ -56,7 +57,7 @@ type Query {
 }
 
 type Rating {
-  category: Category!
+  categoryID: String!
 
   """Identifies the date and time when the object was created."""
   createdAt: Date!
