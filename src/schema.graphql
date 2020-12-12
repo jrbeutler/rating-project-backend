@@ -48,6 +48,8 @@ type Mutation {
 }
 
 type Query {
+  calculateAverageBackEndRating(reviewedID: String!): String!
+  calculateAverageFrontEndRating(reviewedID: String!): String!
   me: User!
   userRatings(reviewedID: String!): [Rating!]!
   userReviewedRatings(reviewerID: String!): [Rating!]!

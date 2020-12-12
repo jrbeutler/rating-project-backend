@@ -9,7 +9,8 @@ import { CreateRatingInput } from './create-rating.input';
 @Resolver((of) => Rating)
 @UseGuards(GqlAuthGuard)
 export class RatingResolver {
-  constructor(private ratingService: RatingService) {}
+  constructor(private ratingService: RatingService) {
+  }
 
   @UseGuards(GqlAuthGuard)
   @Query((returns) => [Rating])
@@ -49,18 +50,10 @@ export class RatingResolver {
   }
 
   @UseGuards(GqlAuthGuard)
-  @Query((returns) => String )
-  async calculateAverageFrontEndRating(
-    @RatingEntity() ratings: string,
-    @Args('reviewedID') reviewedID: string): Promise<string> {
-    return this.ratingService.calculateAverageFrontEndRating(reviewedID)
-  }
-
-  @UseGuards(GqlAuthGuard)
-  @Query((returns) => String )
-  async calculateAverageBackEndRating(
-    @RatingEntity() ratings: string,
-    @Args('reviewedID') reviewedID: string): Promise<string> {
-    return this.ratingService.calculateAverageBackEndRating(reviewedID)
+  @Query((returns) => Number)
+  async calculateAverageRating(
+    @RatingEntity() ratings: number,
+    @Args('reviewedID') reviewedID: string): Promise<number> {
+    return this.ratingService.calculateAverageRating(reviewedID)
   }
 }
