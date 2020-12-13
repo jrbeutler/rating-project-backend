@@ -14,6 +14,18 @@ export class RatingService {
     });
   }
 
+  async userOverallAverage(userID: string) {
+    const results = await this.prisma.rating.aggregate({
+      avg: {
+        rating: true,
+      },
+      where: {
+        reviewedID: userID,
+      }
+    });
+    return results.avg.rating;
+  };
+
   userRatingCategoryAverages(userID: string) {
     return this.prisma.$queryRaw`select "categoryID", name, round(avg(rating), 1) as average from "rating-project"."Rating"
       inner join "rating-project"."Category" on "categoryID" = "Category".id

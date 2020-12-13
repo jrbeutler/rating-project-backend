@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Float, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { Rating } from '../../models/rating.model';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../../guards/gql-auth.guard';
@@ -31,6 +31,13 @@ export class RatingResolver {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return this.ratingService.userReviewedRatings(reviewerID);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Query(() => Float)
+  async userOverallAverage(
+    @Args('userID') userID: string): Promise<number> {
+    return this.ratingService.userOverallAverage(userID);
   }
 
   @UseGuards(GqlAuthGuard)

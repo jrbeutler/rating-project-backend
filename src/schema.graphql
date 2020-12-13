@@ -58,6 +58,7 @@ type Query {
   getAllCategories: [Category!]!
   me: User!
   userByID(userID: String!): User!
+  userOverallAverage(userID: String!): Float!
   userRatingCategoryAverages(userID: String!): [CategoryAverage!]!
   userRatings(reviewedID: String!): [Rating!]!
   userReviewedRatings(reviewerID: String!): [Rating!]!
