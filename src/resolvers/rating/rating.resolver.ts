@@ -5,6 +5,8 @@ import { GqlAuthGuard } from '../../guards/gql-auth.guard';
 import { RatingService } from '../../services/rating.service';
 import { RatingEntity } from '../../decorators/rating.decorator';
 import { CreateRatingInput } from './create-rating.input';
+import { CategoryAverage } from "../../models/categoryAverage.model";
+import { CategoryAverageEntity } from "../../decorators/categoryAverage.decorator";
 
 @Resolver((of) => Rating)
 @UseGuards(GqlAuthGuard)
@@ -31,21 +33,19 @@ export class RatingResolver {
     return this.ratingService.userReviewedRatings(reviewerID);
   }
 
+  @UseGuards(GqlAuthGuard)
+  @Query(() => [CategoryAverage])
+  async userRatingCategoryAverages(
+    @CategoryAverageEntity() categoryAverage: CategoryAverage,
+    @Args('userID') userID: string): Promise<CategoryAverage[]> {
+    return this.ratingService.userRatingCategoryAverages(userID);
+  }
 
   @UseGuards(GqlAuthGuard)
   @Mutation((returns) => Rating)
   async createRating(
     @RatingEntity() rating: Rating,
     @Args('data') newRatingData: CreateRatingInput) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const result = this.ratingService.createRating(newRatingData);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    if (result.errors) {
-      return rating;
-    } else {
-      return result;
-    }
+    return this.ratingService.createRating(newRatingData);
   }
 }

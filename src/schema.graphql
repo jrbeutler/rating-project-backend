@@ -16,6 +16,12 @@ type Category {
   name: String!
 }
 
+type CategoryAverage {
+  average: Int!
+  categoryID: String!
+  name: String!
+}
+
 input ChangePasswordInput {
   newPassword: String!
   oldPassword: String!
@@ -52,6 +58,7 @@ type Query {
   getAllCategories: [Category!]!
   me: User!
   userByID(userID: String!): User!
+  userRatingCategoryAverages(userID: String!): [CategoryAverage!]!
   userRatings(reviewedID: String!): [Rating!]!
   userReviewedRatings(reviewerID: String!): [Rating!]!
 }
