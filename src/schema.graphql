@@ -61,6 +61,7 @@ type Query {
   userOverallAverage(userID: String!): Float!
   userRatingCategoryAverages(userID: String!): [CategoryAverage!]!
   userRatings(reviewedID: String!): [Rating!]!
+  userRatingsByCategory(data: UserCategoryInput!): [Rating!]!
   userReviewedRatings(reviewerID: String!): [Rating!]!
 }
 
@@ -116,4 +117,9 @@ type User {
 
   """Identifies the date and time when the object was last updated."""
   updatedAt: Date!
+}
+
+input UserCategoryInput {
+  categoryID: String!
+  userID: String!
 }
