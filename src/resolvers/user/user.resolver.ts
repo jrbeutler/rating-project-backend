@@ -2,10 +2,11 @@ import { GqlAuthGuard } from '../../guards/gql-auth.guard';
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { UserEntity } from '../../decorators/user.decorator';
-import { User } from '../../models/user.model';
+import { Role, User } from '../../models/user.model';
 import { ChangePasswordInput } from './dto/change-password.input';
 import { UserService } from 'src/services/user.service';
 import { UpdateUserInput } from './dto/update-user.input';
+import { CreateNewUser } from "./dto/create-user.input";
 
 @Resolver((of) => User)
 @UseGuards(GqlAuthGuard)
@@ -31,6 +32,15 @@ export class UserResolver {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return this.userService.allUsers();
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation((returns) => User)
+  async createUser(
+    @UserEntity() user: User,
+    @Args('data') newUserData: CreateNewUser
+  ) {
+    return this.userService.createUser(newUserData);
   }
 
   @UseGuards(GqlAuthGuard)
