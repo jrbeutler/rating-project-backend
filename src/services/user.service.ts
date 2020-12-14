@@ -25,14 +25,15 @@ export class UserService {
     });
   }
 
-  createUser(newUserData: CreateNewUser) {
+  async createUser(newUserData: CreateNewUser) {
+    const hashedPassword = await this.passwordService.hashPassword(newUserData.password);
     return this.prisma.user.create({
       data: {
         firstname: newUserData.firstname,
         lastname: newUserData.lastname,
         email: newUserData.email,
         role: newUserData.role,
-        password: newUserData.password,
+        password: hashedPassword,
       }
     });
   }
