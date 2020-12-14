@@ -4,6 +4,7 @@ import { PrismaService } from './prisma.service';
 import { ChangePasswordInput } from '../resolvers/user/dto/change-password.input';
 import { UpdateUserInput } from '../resolvers/user/dto/update-user.input';
 import { Role } from "../models/user.model";
+import { CreateNewUser } from "../resolvers/user/dto/create-user.input";
 
 @Injectable()
 export class UserService {
@@ -24,14 +25,14 @@ export class UserService {
     });
   }
 
-  createUser(userFirstName: string, userLastName: string, userEmail: string, userRole: Role, userPassword: string) {
+  createUser(newUserData: CreateNewUser) {
     return this.prisma.user.create({
       data: {
-        firstname: userFirstName,
-        lastname: userLastName,
-        email: userEmail,
-        role: userRole,
-        password: userPassword,
+        firstname: newUserData.firstname,
+        lastname: newUserData.lastname,
+        email: newUserData.email,
+        role: newUserData.role,
+        password: newUserData.password,
       }
     });
   }

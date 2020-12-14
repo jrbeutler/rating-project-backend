@@ -6,6 +6,7 @@ import { Role, User } from '../../models/user.model';
 import { ChangePasswordInput } from './dto/change-password.input';
 import { UserService } from 'src/services/user.service';
 import { UpdateUserInput } from './dto/update-user.input';
+import { CreateNewUser } from "./dto/create-user.input";
 
 @Resolver((of) => User)
 @UseGuards(GqlAuthGuard)
@@ -37,13 +38,9 @@ export class UserResolver {
   @Mutation((returns) => User)
   async createUser(
     @UserEntity() user: User,
-    @Args('firstname') userFirstName: string,
-    @Args('lastname') userLastName: string,
-    @Args('email') userEmail: string,
-    @Args('role') userRole: Role,
-    @Args('password') userPassword: string,
+    @Args('data') newUserData: CreateNewUser
   ) {
-    return this.userService.createUser(userFirstName,userLastName,userEmail,userRole,userPassword);
+    return this.userService.createUser(newUserData);
   }
 
   @UseGuards(GqlAuthGuard)
