@@ -27,6 +27,14 @@ input ChangePasswordInput {
   oldPassword: String!
 }
 
+input CreateNewUser {
+  email: String!
+  firstname: String!
+  lastname: String!
+  password: String!
+  role: String!
+}
+
 input CreateRatingInput {
   categoryID: String!
   notes: String
@@ -47,6 +55,7 @@ type Mutation {
   changePassword(data: ChangePasswordInput!): User!
   createCategory(name: String!): Category!
   createRating(data: CreateRatingInput!): Rating!
+  createUser(data: CreateNewUser!): User!
   login(data: LoginInput!): Auth!
   refreshToken(token: String!): Token!
   signup(data: SignupInput!): Auth!
