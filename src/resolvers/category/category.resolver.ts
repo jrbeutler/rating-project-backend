@@ -21,4 +21,11 @@ export class CategoryResolver {
   async getAllCategories() {
     return this.categoryService.getAllCategories();
   }
+
+  @Query(() => Category)
+  async getCategoryByID(
+  @CategoryEntity() category: Category,
+  @Args('categoryID') categoryID: string) {
+    return this.categoryService.getByID(categoryID);
+  }
 }

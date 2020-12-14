@@ -56,6 +56,7 @@ type Mutation {
 type Query {
   allUsers: [User!]!
   getAllCategories: [Category!]!
+  getCategoryByID(categoryID: String!): Category!
   me: User!
   userByID(userID: String!): User!
   userOverallAverage(userID: String!): Float!

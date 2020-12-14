@@ -12,6 +12,14 @@ export class CategoryService {
     return this.prisma.category.findMany();
   }
 
+  getByID(categoryID: string): Promise<Category> {
+    return this.prisma.category.findOne({
+      where: {
+        id: categoryID
+      }
+    });
+  }
+
   createCategory(categoryName: string) {
     return this.prisma.category.create({
       data: {
