@@ -7,6 +7,18 @@ async function main() {
   dotenv.config();
   console.log('Seeding...');
 
+  const category1 = await prisma.category.create({
+    data: {
+      name: "Frontend",
+    }
+  });
+  const category2 = await prisma.category.create({
+    data: {
+      name: "Backend",
+    }
+  });
+  console.log({category1, category2})
+
   const user1 = await prisma.user.create({
     data: {
       email: 'lisa@simpson.com',
@@ -28,7 +40,11 @@ async function main() {
   console.log({ user1, user2 });
   const rating1 = await prisma.rating.create({
     data: {
-      category: 'FRONTEND',
+      Rating_Category_categoryToCategory: {
+        connect: {
+          id: category1.id
+        }
+      },
       rating: 4,
       notes: 'Really solid knowledge!',
       User_Rating_reviewedIDToUser: {
@@ -41,7 +57,11 @@ async function main() {
   });
   const rating2 = await prisma.rating.create({
     data: {
-      category: 'BACKEND',
+      Rating_Category_categoryToCategory: {
+        connect: {
+          id: category2.id
+        }
+      },
       rating: 2,
       notes: 'Really need work!',
       User_Rating_reviewedIDToUser: {

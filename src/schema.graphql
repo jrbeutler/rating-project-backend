@@ -11,10 +11,15 @@ type Auth {
   user: User!
 }
 
-"""User Category Graded"""
-enum Category {
-  BACKEND
-  FRONTEND
+type Category {
+  id: ID!
+  name: String!
+}
+
+type CategoryAverage {
+  average: Int!
+  categoryID: String!
+  name: String!
 }
 
 input ChangePasswordInput {
@@ -22,8 +27,16 @@ input ChangePasswordInput {
   oldPassword: String!
 }
 
+input CreateNewUser {
+  email: String!
+  firstname: String!
+  lastname: String!
+  password: String!
+  role: String!
+}
+
 input CreateRatingInput {
-  category: String!
+  categoryID: String!
   notes: String
   rating: Int!
   reviewedID: String!
@@ -40,7 +53,9 @@ input LoginInput {
 
 type Mutation {
   changePassword(data: ChangePasswordInput!): User!
+  createCategory(name: String!): Category!
   createRating(data: CreateRatingInput!): Rating!
+  createUser(data: CreateNewUser!): User!
   login(data: LoginInput!): Auth!
   refreshToken(token: String!): Token!
   signup(data: SignupInput!): Auth!
@@ -49,14 +64,19 @@ type Mutation {
 
 type Query {
   allUsers: [User!]!
+  getAllCategories: [Category!]!
+  getCategoryByID(categoryID: String!): Category!
   me: User!
   userByID(userID: String!): User!
+  userOverallAverage(userID: String!): Float!
+  userRatingCategoryAverages(userID: String!): [CategoryAverage!]!
   userRatings(reviewedID: String!): [Rating!]!
+  userRatingsByCategory(data: UserCategoryInput!): [Rating!]!
   userReviewedRatings(reviewerID: String!): [Rating!]!
 }
 
 type Rating {
-  category: Category!
+  categoryID: String!
 
   """Identifies the date and time when the object was created."""
   createdAt: Date!
@@ -107,4 +127,9 @@ type User {
 
   """Identifies the date and time when the object was last updated."""
   updatedAt: Date!
+}
+
+input UserCategoryInput {
+  categoryID: String!
+  userID: String!
 }

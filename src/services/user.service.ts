@@ -3,6 +3,8 @@ import { PasswordService } from './password.service';
 import { PrismaService } from './prisma.service';
 import { ChangePasswordInput } from '../resolvers/user/dto/change-password.input';
 import { UpdateUserInput } from '../resolvers/user/dto/update-user.input';
+import { Role } from "../models/user.model";
+import { CreateNewUser } from "../resolvers/user/dto/create-user.input";
 
 @Injectable()
 export class UserService {
@@ -20,6 +22,19 @@ export class UserService {
       where: {
         id: userID,
       },
+    });
+  }
+
+  async createUser(newUserData: CreateNewUser) {
+    const hashedPassword = await this.passwordService.hashPassword(newUserData.password);
+    return this.prisma.user.create({
+      data: {
+        firstname: newUserData.firstname,
+        lastname: newUserData.lastname,
+        email: newUserData.email,
+        role: newUserData.role,
+        password: hashedPassword,
+      }
     });
   }
 
