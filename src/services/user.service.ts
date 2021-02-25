@@ -17,6 +17,16 @@ export class UserService {
     return this.prisma.user.findMany();
   }
 
+  allApprentices() {
+    return this.prisma.user.findMany(
+      {
+        where: {
+          role: 'USER',
+        }
+      }
+    );
+  }
+
   userByID(userID: string) {
     return this.prisma.user.findOne({
       where: {
