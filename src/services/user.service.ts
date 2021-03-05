@@ -1,7 +1,6 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { PasswordService } from './password.service';
 import { PrismaService } from './prisma.service';
-import { ChangePasswordInput } from '../resolvers/user/dto/change-password.input';
 import { UpdateUserInput } from '../resolvers/user/dto/update-user.input';
 import { Role } from "../models/user.model";
 import { CreateNewUser } from "../resolvers/user/dto/create-user.input";
@@ -15,6 +14,16 @@ export class UserService {
 
   allUsers() {
     return this.prisma.user.findMany();
+  }
+
+  allApprentices() {
+    return this.prisma.user.findMany(
+      {
+        where: {
+          role: 'USER',
+        }
+      }
+    );
   }
 
   userByID(userID: string) {
@@ -38,38 +47,31 @@ export class UserService {
     });
   }
 
-  updateUser(userId: string, newUserData: UpdateUserInput) {
-    return this.prisma.user.update({
-      data: newUserData,
-      where: {
-        id: userId,
-      },
-    });
-  }
+  async updateUser(userId: string,
+                   newUserData: UpdateUserInput,
+                   ) {
 
-  async changePassword(
-    userId: string,
-    userPassword: string,
-    changePassword: ChangePasswordInput
-  ) {
     const passwordValid = await this.passwordService.validatePassword(
-      changePassword.oldPassword,
-      userPassword
+      newUserData.oldPassword,
+      newUserData.newPassword
     );
 
-    if (!passwordValid) {
+    if (passwordValid) {
       throw new BadRequestException('Invalid password');
     }
 
     const hashedPassword = await this.passwordService.hashPassword(
-      changePassword.newPassword
+      newUserData.newPassword
     );
 
     return this.prisma.user.update({
       data: {
-        password: hashedPassword,
+        firstname: newUserData.firstname,
+        lastname: newUserData.lastname,
+        password: hashedPassword },
+      where: {
+        id: userId,
       },
-      where: { id: userId },
     });
   }
 }
