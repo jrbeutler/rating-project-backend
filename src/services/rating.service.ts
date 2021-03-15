@@ -15,6 +15,12 @@ export class RatingService {
     });
   }
 
+  userAllRatings(userID: string): Promise<Rating[]> {
+    return this.prisma.rating.findMany({
+      where: {reviewedID: userID}
+    });
+  }
+
   userRatingsByCategory(userID: string, categoryID: string): Promise<Rating[]> {
     return this.prisma.rating.findMany({
       where: {reviewedID: userID, categoryID: categoryID}

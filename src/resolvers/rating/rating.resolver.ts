@@ -24,6 +24,14 @@ export class RatingResolver {
 
   @UseGuards(GqlAuthGuard)
   @Query(() => [Rating])
+  async userAllRatings(
+    @RatingEntity() ratings: Rating[],
+    @Args('reviewedID') userID: string): Promise<Rating[]> {
+    return this.ratingService.userAllRatings(userID);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Query(() => [Rating])
   async userReviewedRatings(
     @RatingEntity() ratings: Rating[],
     @Args('reviewerID') reviewerID: string): Promise<Rating[]> {
