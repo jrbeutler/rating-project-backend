@@ -57,6 +57,7 @@ type Mutation {
 }
 
 type Query {
+  allApprentices: [User!]!
   allUsers: [User!]!
   getAllCategories: [Category!]!
   getCategoryByID(categoryID: String!): Category!
