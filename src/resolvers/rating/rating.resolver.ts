@@ -10,11 +10,9 @@ import { CategoryAverageEntity } from "../../decorators/categoryAverage.decorato
 import { UserCategoryInput } from "./dto/user-category.input";
 
 @Resolver(() => Rating)
-@UseGuards(GqlAuthGuard)
 export class RatingResolver {
   constructor(private ratingService: RatingService) {}
 
-  @UseGuards(GqlAuthGuard)
   @Query(() => [Rating])
   async userRatings(
     @RatingEntity() ratings: Rating[],
@@ -22,7 +20,6 @@ export class RatingResolver {
     return this.ratingService.userRatings(reviewedID);
   }
 
-  @UseGuards(GqlAuthGuard)
   @Query(() => [Rating])
   async userReviewedRatings(
     @RatingEntity() ratings: Rating[],
@@ -30,7 +27,6 @@ export class RatingResolver {
     return this.ratingService.userReviewedRatings(reviewerID);
   }
 
-  @UseGuards(GqlAuthGuard)
   @Query(() => [Rating])
   async userRatingsByCategory(
     @RatingEntity() ratings: Rating[],
@@ -38,14 +34,12 @@ export class RatingResolver {
     return this.ratingService.userRatingsByCategory(userCategory.userID, userCategory.categoryID);
   }
 
-  @UseGuards(GqlAuthGuard)
   @Query(() => Float)
   async userOverallAverage(
     @Args('userID') userID: string): Promise<number> {
     return this.ratingService.userOverallAverage(userID);
   }
 
-  @UseGuards(GqlAuthGuard)
   @Query(() => [CategoryAverage])
   async userRatingCategoryAverages(
     @CategoryAverageEntity() categoryAverage: CategoryAverage,
