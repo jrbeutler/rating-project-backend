@@ -6,10 +6,10 @@ import { CategoryService } from '../../services/category.service';
 import { CategoryEntity } from '../../decorators/category.decorator';
 
 @Resolver(() => Category)
-@UseGuards(GqlAuthGuard)
 export class CategoryResolver {
   constructor(private categoryService: CategoryService) {}
 
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => Category)
   async createCategory(
     @CategoryEntity() category: Category,
