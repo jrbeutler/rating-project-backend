@@ -7,5 +7,7 @@ export class CategoryAverage {
   @Field()
   name: string;
   @Field()
+  isActive: boolean;
+  @Field()
   average: number;
 }

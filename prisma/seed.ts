@@ -25,7 +25,7 @@ async function main() {
       firstname: 'Lisa',
       lastname: 'Simpson',
       password: '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6xNekdHgTGmrpHEfIoxm', // secret42
-      role: 'USER',
+      role: 'APPRENTICE',
     },
   });
   const user2 = await prisma.user.create({

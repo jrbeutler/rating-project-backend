@@ -5,4 +5,5 @@ export class Category {
   @Field((type) => ID)
   id: string;
   name: string;
+  isActive: boolean;
 }
