@@ -11,6 +11,7 @@ Table User {
   firstname String
   lastname String
   role Role [not null]
+  isActive Boolean [not null, default: true]
   Rating_Rating_reviewedIDToUser Rating
   Rating_Rating_reviewerIDToUser Rating
 }
@@ -32,12 +33,14 @@ Table Rating {
 Table Category {
   id String [pk]
   name String [not null]
+  isActive Boolean [not null, default: true]
   Rating Rating
 }
 
 Enum Role {
   ADMIN
-  USER
+  APPRENTICE
+  FTE
 }
 
 Ref: Rating.reviewedID > User.id
