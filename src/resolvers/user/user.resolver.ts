@@ -63,6 +63,16 @@ export class UserResolver {
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => User)
+  async changeUserPosition(
+      @UserEntity() user: User,
+      @Args('userID') userID: string,
+      @Args('position') position: Role,
+  ) {
+    return this.userService.changeUserPosition(userID, position);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => User)
   async archiveUser(
       @UserEntity() user: User,
       @Args('userID') userID: string): Promise<User> {

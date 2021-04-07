@@ -3,7 +3,8 @@ import { BaseModel } from './base.model';
 
 export enum Role {
   ADMIN = 'ADMIN',
-  APPRENTICE = "APPRENTICE"
+  APPRENTICE = "APPRENTICE",
+  FTE = "FTE",
 }
 
 registerEnumType(Role, {

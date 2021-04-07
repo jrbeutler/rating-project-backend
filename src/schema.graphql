@@ -53,6 +53,7 @@ type Mutation {
   activateUser(userID: String!): User!
   archiveCategory(categoryID: String!): Category!
   archiveUser(userID: String!): User!
+  changeUserPosition(position: String!, userID: String!): User!
   createCategory(name: String!): Category!
   createRating(data: CreateRatingInput!): Rating!
   createUser(data: CreateNewUser!): User!
@@ -95,6 +96,7 @@ type Rating {
 enum Role {
   ADMIN
   APPRENTICE
+  FTE
 }
 
 input SignupInput {
