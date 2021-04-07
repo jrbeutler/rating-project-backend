@@ -49,7 +49,9 @@ input LoginInput {
 }
 
 type Mutation {
+  activateCategory(categoryID: String!): Category!
   activateUser(userID: String!): User!
+  archiveCategory(categoryID: String!): Category!
   archiveUser(userID: String!): User!
   createCategory(name: String!): Category!
   createRating(data: CreateRatingInput!): Rating!
