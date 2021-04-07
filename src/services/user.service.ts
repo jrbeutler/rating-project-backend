@@ -73,5 +73,27 @@ export class UserService {
         id: userId,
       },
     });
-  }
+  };
+
+  async archiveUser(userID: string) {
+    return this.prisma.user.update({
+      data: {
+        isActive: false,
+      },
+      where: {
+        id: userID,
+      }
+    });
+  };
+
+  async activateUser(userID: string) {
+    return this.prisma.user.update({
+      data: {
+        isActive: true,
+      },
+      where: {
+        id: userID,
+      }
+    });
+  };
 }
