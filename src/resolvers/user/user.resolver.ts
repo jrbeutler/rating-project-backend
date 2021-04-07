@@ -60,4 +60,34 @@ export class UserResolver {
       newUserData
       );
   }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => User)
+  async changeUserPosition(
+      @UserEntity() user: User,
+      @Args('userID') userID: string,
+      @Args('position') position: Role,
+  ) {
+    return this.userService.changeUserPosition(userID, position);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => User)
+  async archiveUser(
+      @UserEntity() user: User,
+      @Args('userID') userID: string): Promise<User> {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      return this.userService.archiveUser(userID);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => User)
+  async activateUser(
+      @UserEntity() user: User,
+      @Args('userID') userID: string): Promise<User> {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      return this.userService.activateUser(userID);
+  }
 }

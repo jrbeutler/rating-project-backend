@@ -20,11 +20,33 @@ export class CategoryService {
     });
   }
 
-  createCategory(categoryName: string) {
+  createCategory(categoryName: string): any {
     return this.prisma.category.create({
       data: {
         name: categoryName
       }
     });
   }
+
+  archiveCategory(categoryID: string): Promise<Category> {
+    return this.prisma.category.update({
+      data: {
+        isActive: false,
+      },
+      where: {
+        id: categoryID
+      }
+    });
+  };
+
+  activateCategory(categoryID: string): Promise<Category> {
+    return this.prisma.category.update({
+      data: {
+        isActive: true,
+      },
+      where: {
+        id: categoryID
+      }
+    });
+  };
 }
