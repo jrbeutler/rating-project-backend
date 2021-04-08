@@ -8,11 +8,11 @@ import { UpdateUserInput } from './dto/update-user.input';
 import { CreateNewUser } from "./dto/create-user.input";
 
 @Resolver((of) => User)
-@UseGuards(GqlAuthGuard)
 export class UserResolver {
   constructor(private userService: UserService) {
   }
 
+  @UseGuards(GqlAuthGuard)
   @Query((returns) => User)
   async me(@UserEntity() user: User): Promise<User> {
     return user;
