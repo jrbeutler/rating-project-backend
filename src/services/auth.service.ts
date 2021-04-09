@@ -37,7 +37,7 @@ export class AuthService {
         data: {
           ...payload,
           password: hashedPassword,
-          role: 'USER',
+          role: 'APPRENTICE',
         },
       });
 
@@ -84,11 +84,12 @@ export class AuthService {
   }
 
   generateToken(payload: UserPayload): Token {
-    const accessToken = this.jwtService.sign(payload);
+    const accessToken = this.jwtService.sign(payload, {
+      expiresIn: "2 days",
+    });
 
-    const securityConfig = this.configService.get<SecurityConfig>('security');
     const refreshToken = this.jwtService.sign(payload, {
-      expiresIn: securityConfig.refreshIn,
+      expiresIn: "2 days",
     });
 
     return {

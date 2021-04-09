@@ -3,7 +3,8 @@ import { BaseModel } from './base.model';
 
 export enum Role {
   ADMIN = 'ADMIN',
-  USER = 'USER',
+  APPRENTICE = "APPRENTICE",
+  FTE = "FTE",
 }
 
 registerEnumType(Role, {
@@ -17,6 +18,7 @@ export class User extends BaseModel {
   firstname?: string;
   lastname?: string;
   role: Role;
+  isActive: boolean;
   @HideField()
   password: string;
 }

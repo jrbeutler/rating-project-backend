@@ -8,11 +8,11 @@ import { UpdateUserInput } from './dto/update-user.input';
 import { CreateNewUser } from "./dto/create-user.input";
 
 @Resolver((of) => User)
-@UseGuards(GqlAuthGuard)
 export class UserResolver {
   constructor(private userService: UserService) {
   }
 
+  @UseGuards(GqlAuthGuard)
   @Query((returns) => User)
   async me(@UserEntity() user: User): Promise<User> {
     return user;
@@ -59,5 +59,35 @@ export class UserResolver {
     return this.userService.updateUser(user.id,
       newUserData
       );
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => User)
+  async changeUserPosition(
+      @UserEntity() user: User,
+      @Args('userID') userID: string,
+      @Args('position') position: Role,
+  ) {
+    return this.userService.changeUserPosition(userID, position);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => User)
+  async archiveUser(
+      @UserEntity() user: User,
+      @Args('userID') userID: string): Promise<User> {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      return this.userService.archiveUser(userID);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => User)
+  async activateUser(
+      @UserEntity() user: User,
+      @Args('userID') userID: string): Promise<User> {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      return this.userService.activateUser(userID);
   }
 }

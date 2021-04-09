@@ -2,8 +2,8 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 import { PasswordService } from './password.service';
 import { PrismaService } from './prisma.service';
 import { UpdateUserInput } from '../resolvers/user/dto/update-user.input';
-import { Role } from "../models/user.model";
 import { CreateNewUser } from "../resolvers/user/dto/create-user.input";
+import {Role} from "../models/user.model";
 
 @Injectable()
 export class UserService {
@@ -20,7 +20,7 @@ export class UserService {
     return this.prisma.user.findMany(
       {
         where: {
-          role: 'USER',
+          role: 'APPRENTICE',
         }
       }
     );
@@ -42,6 +42,7 @@ export class UserService {
         lastname: newUserData.lastname,
         email: newUserData.email,
         role: newUserData.role,
+        isActive: true,
         password: hashedPassword,
       }
     });
@@ -73,5 +74,38 @@ export class UserService {
         id: userId,
       },
     });
-  }
+  };
+
+  async changeUserPosition(userID: string, position: Role) {
+    return this.prisma.user.update({
+      data: {
+        role: position
+      },
+      where: {
+        id: userID
+      }
+    });
+  };
+
+  async archiveUser(userID: string) {
+    return this.prisma.user.update({
+      data: {
+        isActive: false,
+      },
+      where: {
+        id: userID,
+      }
+    });
+  };
+
+  async activateUser(userID: string) {
+    return this.prisma.user.update({
+      data: {
+        isActive: true,
+      },
+      where: {
+        id: userID,
+      }
+    });
+  };
 }
